@@ -1,0 +1,32 @@
+[
+    {
+      "id": 1,
+      "name": "java-task",
+      "currentStatus": "pending",
+      "taskDuration": "05:00:00"
+    },
+    {
+      "id": 2,
+      "name": "angular-task",
+      "currentStatus": "completed",
+      "taskDuration": "04:00:00"
+    },
+    {
+      "id": 3,
+      "name": "react-task",
+      "currentStatus": "open",
+      "taskDuration": "02:00:00"
+    },
+    {
+      "id": 4,
+      "name": "php-task",
+      "currentStatus": "inProgress",
+      "taskDuration": "03:00:00"
+    },
+    {
+      "id": 5,
+      "name": "flutter-task",
+      "currentStatus": "overdue",
+      "taskDuration": "04:00:00"
+    }
+  ]
