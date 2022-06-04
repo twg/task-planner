@@ -1,0 +1,50 @@
+<div class="container text-center">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Task ID</th>
+        <th scope="col">Task Name</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+        <th scope="col">Time Remaining</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let task of taskList"
+        [ngClass]="{
+          completed: task.currentStatus === 'completed',
+          overdue: task.currentStatus === 'overdue',
+          open: task.currentStatus === 'open',
+          pending: task.currentStatus === 'pending',
+          'in-progress': task.currentStatus === 'inProgress'
+        }"
+      >
+        <th scope="row">{{ task?.id }}</th>
+        <td>{{ task?.name }}</td>
+        <td>{{ task?.currentStatus }}</td>
+        <td>
+          <input
+            class="btn btn-primary ml-3"
+            type="button"
+            value="Start"
+            (click)="onStart(task)"
+          />
+          <input
+            class="btn btn-primary ml-3"
+            type="button"
+            value="Pause"
+            (click)="onPause()"
+          />
+          <input
+            class="btn btn-primary ml-3"
+            type="reset"
+            value="Completed"
+            (click)="onCompleted(task)"
+          />
+        </td>
+        <td>{{ task.taskDuration }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
