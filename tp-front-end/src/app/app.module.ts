@@ -10,6 +10,9 @@ import { TaskComponent } from './task/task.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { EditTaskModelComponent } from './edit-task-model/edit-task-model.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     AddTaskComponent,
     TaskComponent,
     HomeComponent,
+    EditTaskModelComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,8 +30,12 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NoopAnimationsModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} }
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

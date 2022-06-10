@@ -8,11 +8,11 @@ import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 export class AppService {
   searchTerm = new BehaviorSubject('');
   taskToBeAdded = new ReplaySubject();
-  constructor(private httpClient: HttpClient) {}
+  taskToBeEdited = new ReplaySubject();
+  constructor(private httpClient: HttpClient) { }
 
   publishSearchTerm(searchTerm: any) {
     this.searchTerm.next(searchTerm);
-    console.log('app service', this.searchTerm);
   }
 
   getSearchTerm() {
@@ -21,14 +21,29 @@ export class AppService {
 
   publishTask(taskToBeAdded: any) {
     this.taskToBeAdded.next(taskToBeAdded);
-    console.log('app service taskToBeAdded', this.taskToBeAdded);
   }
 
   getTask() {
     return this.taskToBeAdded;
   }
 
+  publishEditedTask(taskToBeEdited: any) {
+    this.taskToBeEdited.next(taskToBeEdited);
+  }
+
+  getEditedTask() {
+    return this.taskToBeEdited;
+  }
+
   getTasks(): Observable<any> {
     return this.httpClient.get('http://localhost:3000/');
+  }
+
+  setTaskDataInStorage(taskData: any) {
+    localStorage.setItem('taskPlannerData', JSON.stringify({ taskData: taskData }));
+  }
+
+  getTaskDataFromStorage() {
+    return localStorage.getItem('taskPlannerData');
   }
 }
