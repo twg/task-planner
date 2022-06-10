@@ -38,9 +38,21 @@
           />
           <input
             class="btn btn-primary ml-3"
-            type="reset"
+            type="button"
             value="Completed"
             (click)="onCompleted(task)"
+          />
+          <input
+            class="btn btn-primary ml-3"
+            type="button"
+            value="Edit"
+            (click)="onEdit(task)"
+          />
+          <input
+            class="btn btn-primary ml-3"
+            type="button"
+            value="Delete"
+            (click)="onDelete(task)"
           />
         </td>
         <td>{{ task.taskDuration }}</td>
@@ -48,3 +60,4 @@
     </tbody>
   </table>
 </div>
+

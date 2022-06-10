@@ -15,14 +15,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['home']">Home</a>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['home']" [routerLinkActive]="['active']">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['viewtask']">View Task</a>
+          <a class="nav-link" [routerLink]="['viewtask']" [routerLinkActive]="['active']">View Task</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['addtask']">Add Task</a>
+          <a class="nav-link" [routerLink]="['addtask']" [routerLinkActive]="['active']">Add Task</a>
         </li>
       </ul>
       <form

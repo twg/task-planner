@@ -1,0 +1,35 @@
+<form [formGroup]="editTaskForm" (ngSubmit)="onEditTask(editTaskForm.value)">
+<h2 mat-dialog-title>Edit Task</h2>
+<mat-dialog-content class="mat-typography">
+   
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter Task Name"
+            formControlName="taskName"
+            [ngModel]="data.name"
+          />
+        </div>
+    
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Enter Task Duration"
+            formControlName="taskDuration"
+            [ngModel]="data.taskDuration"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary" mat-dialog-close>Cancel</button>
+        <button type="submit" class="btn btn-primary" >Submit</button>
+    
+</mat-dialog-content>
+<!-- <mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button type="submit" (ngSubmit)="onEditTask(editTaskForm.value)" [mat-dialog-close]="false" cdkFocusInitial>Save</button>
+</mat-dialog-actions> -->
+</form>

@@ -18,9 +18,8 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   onSearch(event: any) {
-    console.log('event', event);
     this.appService.publishSearchTerm(event.searchTerm);
   }
 }

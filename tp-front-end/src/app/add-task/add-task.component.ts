@@ -19,10 +19,9 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onAddTask(taskToAdd: any) {
-    console.log('taskToAdd', taskToAdd);
     this.appService.publishTask(taskToAdd);
   }
 }
