@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EditTaskModelComponent } from './edit-task-model/edit-task-model.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
     ReactiveFormsModule,
     HttpClientModule,
     NoopAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} }

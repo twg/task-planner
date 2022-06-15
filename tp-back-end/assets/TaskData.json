@@ -27,6 +27,36 @@
         "id": 5,
         "name": "flutter-task",
         "currentStatus": "overdue",
+        "taskDuration": "00:00:00"
+    },
+    {
+        "id": 6,
+        "name": "java-task",
+        "currentStatus": "pending",
+        "taskDuration": "05:00:00"
+    },
+    {
+        "id": 7,
+        "name": "angular-task",
+        "currentStatus": "completed",
         "taskDuration": "04:00:00"
+    },
+    {
+        "id": 8,
+        "name": "react-task",
+        "currentStatus": "open",
+        "taskDuration": "02:00:00"
+    },
+    {
+        "id": 9,
+        "name": "php-task",
+        "currentStatus": "inProgress",
+        "taskDuration": "03:00:00"
+    },
+    {
+        "id": 10,
+        "name": "flutter-task",
+        "currentStatus": "overdue",
+        "taskDuration": "00:00:00"
     }
 ]

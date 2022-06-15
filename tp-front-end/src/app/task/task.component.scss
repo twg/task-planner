@@ -17,3 +17,10 @@
 .in-progress {
   background-color: #daf7a6;
 }
+
+::ng-deep.action-button-padding {
+ margin-left: 5px !important;
+}
+.mat-raised-button{
+  margin-left: 5px !important;
+}
