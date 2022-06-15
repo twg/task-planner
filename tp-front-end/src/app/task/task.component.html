@@ -23,37 +23,12 @@
         <th scope="row">{{ task?.id }}</th>
         <td>{{ task?.name }}</td>
         <td>{{ task?.currentStatus }}</td>
-        <td>
-          <input
-            class="btn btn-primary ml-3"
-            type="button"
-            value="Start"
-            (click)="onStart(task)"
-          />
-          <input
-            class="btn btn-primary ml-3"
-            type="button"
-            value="Pause"
-            (click)="onPause()"
-          />
-          <input
-            class="btn btn-primary ml-3"
-            type="button"
-            value="Completed"
-            (click)="onCompleted(task)"
-          />
-          <input
-            class="btn btn-primary ml-3"
-            type="button"
-            value="Edit"
-            (click)="onEdit(task)"
-          />
-          <input
-            class="btn btn-primary ml-3"
-            type="button"
-            value="Delete"
-            (click)="onDelete(task)"
-          />
+        <td class="example-button-row">
+          <button class="action-button-padding" mat-raised-button color="primary" type="submit" (click)="onStart(task)">Start</button>
+          <button mat-raised-button color="primary" type="submit" (click)="onPause()">Pause</button>
+          <button mat-raised-button color="primary" type="submit" (click)="onCompleted(task)">Completed</button>
+          <button mat-raised-button color="primary" type="submit" (click)="onEdit(task)">Edit</button>
+          <button mat-raised-button color="primary" type="submit" (click)="onDelete(task)">Delete</button>
         </td>
         <td>{{ task.taskDuration }}</td>
       </tr>
