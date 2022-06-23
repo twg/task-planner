@@ -1,8 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Apollo } from 'apollo-angular';
 import * as moment from 'moment';
 import { AppService } from '../app.service';
 import { EditTaskModelComponent } from '../edit-task-model/edit-task-model.component';
+import { GET_TASKS } from '../graphql.queries';
+
 
 @Component({
   selector: 'app-task',
@@ -13,53 +16,61 @@ export class TaskComponent implements OnInit {
   public tasks: any;
   interval: any;
   taskList: Array<any> = [];
-  // @ViewChild('editTask', {static: false}) editTask: ElementRef = Array<any>;
 
-  constructor(private appService: AppService, private matDialog: MatDialog) { }
+
+  constructor(private appService: AppService, private matDialog: MatDialog, private apollo: Apollo, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.appService.getTasks().subscribe((tasks) => {
-      this.tasks = tasks;
-      const taskDataFromStorage = this.appService.getTaskDataFromStorage();
-      if (taskDataFromStorage) {
-        this.tasks = JSON.parse(taskDataFromStorage).taskData;
-      }
-      this.appService.getTask().subscribe((taskToBeAdded: any) => {
-        if (taskToBeAdded) {
-          this.tasks.push({
-            id: this.tasks.length + 1,
-            name: taskToBeAdded.taskName,
-            currentStatus: 'open',
-            taskDuration: moment(taskToBeAdded.taskDuration, 'hh:mm:ss').format(
-              'hh:mm:ss'
-            ),
-          });
+
+    this.apollo.watchQuery({
+      query: GET_TASKS
+    })
+      .valueChanges.subscribe((tasks: any) => {
+        this.tasks = tasks.data.getAllTasks;
+        const taskDataFromStorage = this.appService.getTaskDataFromStorage();
+        if (taskDataFromStorage) {
+          this.tasks = JSON.parse(taskDataFromStorage).taskData;
         }
+
+        this.appService.getTask().subscribe((taskToBeAdded: any) => {
+          if (taskToBeAdded) {
+            this.tasks.push({
+              id: this.tasks.length + 1,
+              name: taskToBeAdded.taskName,
+              currentStatus: 'open',
+              taskDuration: moment(taskToBeAdded.taskDuration, 'hh:mm:ss').format(
+                'hh:mm:ss'
+              ),
+            });
+          }
+        });
+        this.appService.getEditedTask().subscribe((taskToBeEdited: any) => {
+          if (taskToBeEdited) {
+            this.tasks.map((task: any) => {
+              if (task.id === taskToBeEdited.id) {
+                task.name = taskToBeEdited.name;
+                task.taskDuration = moment(taskToBeEdited.taskDuration, 'hh:mm:ss').format('hh:mm:ss')
+              }
+              return task;
+            })
+            this.appService.setTaskDataInStorage(this.tasks);
+          }
+        });
+        this.taskList = [...this.tasks];
+        this.appService.setTaskDataInStorage(this.taskList);
       });
-      this.appService.getEditedTask().subscribe((taskToBeEdited: any) => {
-        if (taskToBeEdited) {
-          this.tasks.map((task: any) => {
-            if (task.id === taskToBeEdited.id) {
-              task.name = taskToBeEdited.name;
-              task.taskDuration = moment(taskToBeEdited.taskDuration, 'hh:mm:ss').format('hh:mm:ss')
-            }
-            return task;
-          })
-          this.appService.setTaskDataInStorage(this.tasks);
-        }
-      });
-      this.taskList = [...this.tasks];
-      this.appService.setTaskDataInStorage(this.taskList);
-    });
     this.appService.getSearchTerm().subscribe((searchTerm) => {
-      if (searchTerm) {
+      if (searchTerm && searchTerm.length) {
         this.taskList = this.tasks.filter(
           (task: any) =>
             task.name.includes(searchTerm) ||
             task.currentStatus.includes(searchTerm)
         );
+      } else {
+        this.taskList = this.tasks;
       }
     });
+    this.changeDetectorRef.detectChanges();
 
   }
 

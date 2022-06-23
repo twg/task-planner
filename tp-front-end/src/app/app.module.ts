@@ -14,6 +14,8 @@ import { EditTaskModelComponent } from './edit-task-model/edit-task-model.compon
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { GraphQLModule } from './graphql.module';
+import { ChartsComponent } from './charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
     TaskComponent,
     HomeComponent,
     EditTaskModelComponent,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { MatButtonModule } from '@angular/material/button';
     HttpClientModule,
     NoopAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    GraphQLModule
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} }
