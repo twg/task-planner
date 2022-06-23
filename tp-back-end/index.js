@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 const graphql = require("graphql");
 const {
@@ -10,6 +11,7 @@ const {
 } = graphql;
 const { graphqlHTTP } = require("express-graphql");
 const tasks = require("./assets/TaskData.json");
+const cors = require("cors");
 
 const TaskType = new GraphQLObjectType({
   name: "Task",
@@ -65,8 +67,11 @@ const schema = new GraphQLSchema({
   mutation: Mutation,
 });
 
+app.use(cors());
+
 app.use(
-  "/graphql",
+  "/graphql", 
+  bodyParser.json(),
   graphqlHTTP({
     schema: schema,
     graphiql: true, //optional

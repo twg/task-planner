@@ -1,38 +1,53 @@
-<div class="container text-center">
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Task ID</th>
-        <th scope="col">Task Name</th>
-        <th scope="col">Status</th>
-        <th scope="col">Action</th>
-        <th scope="col">Time Remaining</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let task of taskList"
-        [ngClass]="{
-          completed: task.currentStatus === 'completed',
-          overdue: task.currentStatus === 'overdue',
-          open: task.currentStatus === 'open',
-          pending: task.currentStatus === 'pending',
-          'in-progress': task.currentStatus === 'inProgress'
-        }"
-      >
-        <th scope="row">{{ task?.id }}</th>
-        <td>{{ task?.name }}</td>
-        <td>{{ task?.currentStatus }}</td>
-        <td class="example-button-row">
-          <button class="action-button-padding" mat-raised-button color="primary" type="submit" (click)="onStart(task)">Start</button>
-          <button mat-raised-button color="primary" type="submit" (click)="onPause()">Pause</button>
-          <button mat-raised-button color="primary" type="submit" (click)="onCompleted(task)">Completed</button>
-          <button mat-raised-button color="primary" type="submit" (click)="onEdit(task)">Edit</button>
-          <button mat-raised-button color="primary" type="submit" (click)="onDelete(task)">Delete</button>
-        </td>
-        <td>{{ task.taskDuration }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="container-fluid text-center">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="table-responsive" style="width:100%">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Task ID</th>
+              <th scope="col">Task Name</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+              <th scope="col">Time Remaining</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of taskList" [ngClass]="{
+              completed: task.currentStatus === 'completed',
+              overdue: task.currentStatus === 'overdue',
+              open: task.currentStatus === 'open',
+              pending: task.currentStatus === 'pending',
+              'in-progress': task.currentStatus === 'inProgress'
+            }">
+              <th scope="row">{{ task?.id }}</th>
+              <td>{{ task?.name }}</td>
+              <td>{{ task?.currentStatus }}</td>
 
+              <td class="example-button-row">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Task Action
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="onStart(task)">Start</a>
+                    <a class="dropdown-item" (click)="onPause()">Pause</a>
+                    <a class="dropdown-item" (click)="onCompleted(task)">Complete</a>
+                    <a class="dropdown-item" (click)="onEdit(task)">Edit</a>
+                    <a class="dropdown-item" (click)="onDelete(task)">Delete</a>
+                  </div>
+                </div>
+              </td>
+              <td>{{ task.taskDuration }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-7" *ngIf="taskList?.length" style="height: 500px;">
+      <app-charts [taskData]="taskList"></app-charts>
+    </div>
+  </div>
+
+</div>
