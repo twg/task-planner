@@ -3,6 +3,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4ThemesAnimated from '@amcharts/amcharts4/themes/animated';
 import { isPlatformBrowser } from '@angular/common';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-charts',
@@ -21,7 +22,7 @@ export class ChartsComponent implements OnInit, AfterViewInit {
   }
   chartData: any;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any, private ngZone: NgZone) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: any, private ngZone: NgZone, private appService: AppService) { }
 
   browserOnly(f: () => void) {
     if (isPlatformBrowser(this.platformId)) {
@@ -33,8 +34,11 @@ export class ChartsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.setChartData();
-    console.log('charts', this.chartData);
-
+    this.appService.getChartData().subscribe(tasks => {
+      this.taskData1 = tasks;
+      this.setChartData();
+      this.drawPieChart();
+    })
   }
 
   setChartData() {
