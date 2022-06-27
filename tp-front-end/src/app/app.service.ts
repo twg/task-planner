@@ -9,6 +9,7 @@ export class AppService {
   searchTerm = new BehaviorSubject('');
   taskToBeAdded = new ReplaySubject();
   taskToBeEdited = new ReplaySubject();
+  chartData = new ReplaySubject();
   constructor(private httpClient: HttpClient) { }
 
   publishSearchTerm(searchTerm: any) {
@@ -33,6 +34,14 @@ export class AppService {
 
   getEditedTask() {
     return this.taskToBeEdited;
+  }
+
+  publishChartData(tasks: any) {
+    this.chartData.next(tasks);
+  }
+
+  getChartData() {
+    return this.chartData;
   }
 
   getTasks(): Observable<any> {

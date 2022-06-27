@@ -93,10 +93,14 @@ export class TaskComponent implements OnInit {
 
       clearInterval(this.interval);
     }, 1000);
+    this.appService.publishChartData(this.taskList);
+    this.changeDetectorRef.detectChanges();
   }
 
   onPause() {
     clearInterval(this.interval);
+    this.appService.publishChartData(this.taskList);
+    this.changeDetectorRef.detectChanges();
   }
 
   onCompleted(task: any) {
@@ -106,6 +110,8 @@ export class TaskComponent implements OnInit {
       }
     }
     clearInterval(this.interval);
+    this.appService.publishChartData(this.taskList);
+    this.changeDetectorRef.detectChanges();
   }
 
   onEdit(taskToBeEdited: any) {
@@ -113,12 +119,24 @@ export class TaskComponent implements OnInit {
       width: '500px',
       data: taskToBeEdited
     });
+    this.appService.publishChartData(this.taskList);
+    this.changeDetectorRef.detectChanges();
+  }
 
+  onMoreWorkNeeded(task: any) {
+    for (let taskData of this.taskList) {
+      if (taskData.id === task.id) {
+        taskData.currentStatus = 'open';
+      }
+    }
+    this.appService.publishChartData(this.taskList);
+    this.changeDetectorRef.detectChanges();
   }
 
   onDelete(taskToBeDeleted: any) {
     this.taskList = this.tasks.filter((task: any) => task.id !== taskToBeDeleted.id);
     this.tasks = this.taskList;
     this.appService.setTaskDataInStorage(this.taskList);
+    this.changeDetectorRef.detectChanges();
   }
 }
