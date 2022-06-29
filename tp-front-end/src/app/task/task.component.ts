@@ -87,12 +87,25 @@ export class TaskComponent implements OnInit {
         }
       }
 
-      if (taskDurationInMilliseconds !== 0) {
+      if (taskDurationInMilliseconds > 0) {
+        for (let taskData of this.taskList) {
+          if (taskData.id === task.id) {
+            taskData.currentStatus = 'inProgress';
+          }
+        }
         return;
+      } else {
+        alert('Cannot start, contact administrator.');
+        for (let taskData of this.taskList) {
+          if (taskData.id === task.id) {
+            taskData.taskDuration = '00:00:00';
+          }
+        }
       }
 
       clearInterval(this.interval);
     }, 1000);
+
     this.appService.publishChartData(this.taskList);
     this.changeDetectorRef.detectChanges();
   }
