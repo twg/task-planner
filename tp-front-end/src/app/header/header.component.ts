@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NavigationEnd, Router } from '@angular/router';
 import { AppService } from '../app.service';
 
 @Component({
@@ -9,19 +10,27 @@ import { AppService } from '../app.service';
 })
 export class HeaderComponent implements OnInit {
   searchForm: FormGroup;
+  isSearchActive: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
-    private appService: AppService
+    private appService: AppService,
+    private router: Router
   ) {
     this.searchForm = this.formBuilder.group({
       searchTerm: '',
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        this.isSearchActive = this.router.url.includes('home');
+      }
+    });
+  }
+
   onSearch(event: any) {
-    // if (event.searchTerm.length) {
     this.appService.publishSearchTerm(event.searchTerm);
-    // }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class AddTaskComponent implements OnInit {
   addTaskForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
-    private appService: AppService
+    private appService: AppService,
+    private router: Router
   ) {
     this.addTaskForm = this.formBuilder.group({
       taskName: '',
@@ -23,5 +25,6 @@ export class AddTaskComponent implements OnInit {
 
   onAddTask(taskToAdd: any) {
     this.appService.publishTask(taskToAdd);
+    this.router.navigateByUrl('viewtask');
   }
 }
